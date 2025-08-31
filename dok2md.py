@@ -135,10 +135,12 @@ def find_all_files():
                 infile = os.path.join(root, filename)
                 new_name = filename.replace(".txt", ".md")
 
-                if not os.path.exists(output_base):
-                    os.makedirs(output_base)
+                rel_path = os.path.relpath(root, input_base)
+                
+                out_dir = os.path.join(output_base, rel_path)
+                os.makedirs(out_dir, exist_ok=True)
 
-                outfile = os.path.join(output_base, new_name)
+                outfile = os.path.join(out_dir, new_name)
 
                 convert(infile, outfile)
 
